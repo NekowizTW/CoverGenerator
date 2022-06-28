@@ -57,7 +57,18 @@
       return {
         tabs: TABS,
         currentTab: 'bahamut',
-        data: ''
+        data: {
+          'coverLogo': {name: 'Q版維茲', file: 'qWiz.png'},
+          'name': '遊戲ID顯示處',
+          'code': '邀請碼顯示處',
+          'seireis': [
+            {id: 0, text: '', value: '0000.png'},
+            {id: 0, text: '', value: '0000.png'},
+            {id: 0, text: '', value: '0000.png'},
+            {id: 0, text: '', value: '0000.png'},
+            {id: 0, text: '', value: '0000.png'}
+          ],
+        }
       }
     },
     mounted () {

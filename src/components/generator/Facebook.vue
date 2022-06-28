@@ -6,9 +6,8 @@
 </template>
 
 <script>
-  import CryptoJS     from 'crypto-js'
-  import Image2Base64 from 'image-to-base64'
-  import DownloadJS   from 'downloadjs'
+  import CryptoJS   from 'crypto-js'
+  import DownloadJS from 'downloadjs'
   export default {
     name: 'facebook-cover',
     data () {
@@ -75,15 +74,18 @@
         this.seireis.forEach((seirei, idx) => {
           let path = this.linkGenerator(seirei)
           // use base64 to prevent cross-origin problem
-          Image2Base64(path).then((response) => {
-            let fullPath = 'data:image/png;base64, ' + response
-            this.$refs.canvas.createImage(fullPath, {
-              width: 40,
-              height: 40,
-              left: 220 + 46 * idx,
-              top: 240,
+          fetch(path)
+            .then(response => response.arrayBuffer())
+            .then(arrayBuffer => Buffer.from(arrayBuffer).toString('base64'))
+            .then(base64 => {
+              let fullPath = `data:image/webp;base64,${base64}`
+              this.$refs.canvas.createImage(fullPath, {
+                width: 40,
+                height: 40,
+                left: 220 + 46 * idx,
+                top: 240,
+              })
             })
-          })
         })
         this.$refs.canvas.createTextbox(_this.name, {
           width: 100,
